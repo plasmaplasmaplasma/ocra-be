@@ -2,17 +2,20 @@
 
 Small project I'm doing to learn Go.
 
-The goal of Ocra is to help real estate agents automate matching between:
-- clients who want to sell their house
-- clients who want to buy a house
-- personal portfolio of the agente
+## About
+
+Ocra is a real estate automation platform designed to streamline the workflow of real estate agents by matching:
+
+- **Sellers** - Clients looking to sell their properties
+- **Buyers** - Clients searching for their ideal home
+- **Agent Portfolios** - Personal property listings managed by the agent
 
 ## Tech Stack
 
-- Go
-- Fiber
-- GORM
-- PostgreSQL (Supabase)
+- **Go**
+- **Fiber**
+- **GORM**
+- **PostgreSQL** (Supabase)
 
 ## Project Structure
 
