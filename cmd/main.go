@@ -4,7 +4,11 @@ import (
 	"fmt"
 	"ocra/api/routes"
 	"ocra/database"
-	"ocra/pkg/user"
+	"ocra/pkg/casa"
+	"ocra/pkg/cliente"
+	"ocra/pkg/ricercacasa"
+	user "ocra/pkg/utente"
+	"ocra/pkg/zona"
 	"os"
 
 	"github.com/goccy/go-json"
@@ -25,7 +29,7 @@ func main() {
 		return
 	}
 
-	database := database.Setup()
+	db := database.Setup()
 
 	app := fiber.New(fiber.Config{
 		JSONEncoder: json.Marshal,
@@ -41,11 +45,29 @@ func main() {
 	api := app.Group("/api")
 
 	userApi := api.Group("/users")
-
-	userTable := database.Table(dbSchema + ".users")
-	userRepo := user.NewRepository(userTable)
+	userRepo := user.NewRepository(db)
 	userService := user.NewService(userRepo)
 	routes.UserRouter(userApi, userService)
+
+	clienteApi := api.Group("/clients")
+	clienteRepo := cliente.NewRepository(db)
+	clienteService := cliente.NewService(clienteRepo)
+	routes.ClienteRouter(clienteApi, clienteService)
+
+	zonaApi := api.Group("/zones")
+	zonaRepo := zona.NewRepository(db)
+	zonaService := zona.NewService(zonaRepo)
+	routes.ZonaRouter(zonaApi, zonaService)
+
+	casaApi := api.Group("/houses")
+	casaRepo := casa.NewRepository(db)
+	casaService := casa.NewService(casaRepo)
+	routes.CasaRouter(casaApi, casaService)
+
+	ricercaCasaApi := api.Group("/search_houses")
+	ricercaCasaRepo := ricercacasa.NewRepository(db)
+	ricercaCasaService := ricercacasa.NewService(ricercaCasaRepo)
+	routes.RicercaCasaRouter(ricercaCasaApi, ricercaCasaService)
 
 	fmt.Printf("Server starting on port %s\n", appPort)
 	if err := app.Listen(":" + appPort); err != nil {

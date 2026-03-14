@@ -45,8 +45,8 @@ func (r *repository) Login(email, password string) (*entities.User, error) {
 	}
 
 	return &entities.User{
-		ID:       user.ID,
-		Email:    user.Email,
-		Username: user.Username,
+		BaseEntity: entities.BaseEntity{ID: user.ID},
+		Email:      user.Email,
+		Username:   user.Username,
 	}, nil
 }

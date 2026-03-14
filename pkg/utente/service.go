@@ -2,6 +2,11 @@ package user
 
 import "ocra/pkg/entities"
 
+type LoginRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
 type Service interface {
 	Login(email, password string) (*entities.User, error)
 }

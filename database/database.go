@@ -38,7 +38,15 @@ func Setup() *gorm.DB {
 	synchronizeDB := os.Getenv("SYNCHRONIZE_DB")
 	if synchronizeDB == "true" {
 		fmt.Println("Synchronizing database")
-		db.AutoMigrate(&entities.User{})
+		if err := db.AutoMigrate(
+			&entities.User{},
+			&entities.Zone{},
+			&entities.Client{},
+			&entities.House{},
+			&entities.SearchHouse{},
+		); err != nil {
+			log.Fatalf("failed to synchronize database: %v", err)
+		}
 		fmt.Println("Synchronization complete")
 	}
 	return db

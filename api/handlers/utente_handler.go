@@ -3,8 +3,7 @@ package handlers
 import (
 	"fmt"
 	"ocra/api/presenter"
-	"ocra/pkg/entities"
-	"ocra/pkg/user"
+	user "ocra/pkg/utente"
 
 	"github.com/gofiber/fiber/v3"
 
@@ -12,10 +11,9 @@ import (
 )
 
 func Login(service user.Service) fiber.Handler {
-	fmt.Println("received login req")
 	return func(c fiber.Ctx) error {
-		var req entities.LoginRequest
-
+		var req user.LoginRequest
+		fmt.Println("received login req")
 		if err := c.Bind().Body(&req); err != nil {
 			return c.JSON(presenter.UserErrorResponse(err))
 		}

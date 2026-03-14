@@ -2,7 +2,7 @@ package routes
 
 import (
 	"ocra/api/handlers"
-	"ocra/pkg/user"
+	user "ocra/pkg/utente"
 
 	"github.com/gofiber/fiber/v3"
 )
